@@ -1,0 +1,88 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>To-Do List by Ibrahim Sultan</title>
+<style>
+  body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #00ffaa;
+  }
+  #container {
+    max-width: 2500px;
+    margin: 30px auto;
+    background-color: #02eeff;
+    padding: 30px;
+    box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.1);
+  }
+  ul {
+    list-style: none;
+    padding: 0;
+  }
+  li {
+    display: flex;
+    align-items: center;
+    margin: 10px 0;
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+  }
+  li:last-child {
+    border-bottom: none;
+  }
+  input[type="checkbox"] {
+    margin-right: 10px;
+  }
+</style>
+</head>
+<body>
+<div id="container">
+  <h1>To-Do List (IBRAHIM SULTAN)</h1>
+  <input type="text" id="newTask" placeholder="Add a new task">
+  <ul id="taskList"></ul>
+</div>
+<script>
+  const newTaskInput = document.getElementById('newTask');
+  const taskList = document.getElementById('taskList');
+
+  function createTaskElement(taskText) {
+    const li = document.createElement('li');
+    const checkbox = document.createElement('input');
+    checkbox.type = 'checkbox';
+    const textSpan = document.createElement('span');
+    textSpan.textContent = taskText;
+    const deleteButton = document.createElement('button');
+    deleteButton.textContent = 'Delete';
+
+    checkbox.addEventListener('change', () => {
+      textSpan.style.textDecoration = checkbox.checked ? 'line-through' : 'none';
+    });
+
+     deleteButton.addEventListener('click', () => {
+      li.remove();
+    });
+
+    li.appendChild(checkbox);
+    li.appendChild(textSpan);
+    li.appendChild(deleteButton);
+
+    return li;
+  }
+
+  newTaskInput.addEventListener('keyup', (event) => {
+    if (event.key === 'Enter' && newTaskInput.value.trim() !== '') {
+      const taskText = newTaskInput.value.trim();
+      const taskElement = createTaskElement(taskText);
+      taskList.appendChild(taskElement);
+      newTaskInput.value = '';
+    }
+  });
+
+
+
+</script>
+</body>
+</html>
